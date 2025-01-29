@@ -1,0 +1,8 @@
+package com.crypto.repository;
+
+import com.crypto.model.Cryptocurrency;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CryptocurrencyRepository extends JpaRepository<Cryptocurrency, Long> {
+    Optional<Cryptocurrency> findBySymbol(String symbol);
+}
