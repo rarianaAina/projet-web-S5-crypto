@@ -1,5 +1,6 @@
 package com.crypto.controller;
 
+import com.crypto.dto.RegisterRequest;
 import com.crypto.model.User;
 import com.crypto.service.AuthService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -84,15 +85,16 @@ public class AuthController {
     }
 
     @PostMapping("/api/auth/register")
-    public String register(@RequestParam String email, @RequestParam String password, @RequestParam String confirmPassword, @RequestParam String firstName, @RequestParam String lastName) {
+    public String register(@RequestBody RegisterRequest request) {
         // Vérifiez les mots de passe ici
-        if (!password.equals(confirmPassword)) {
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
             return "error";  // Vous pouvez rediriger vers une page d'erreur
         }
 
         // Appelez le service pour l'inscription
-        return authService.register(email, password, confirmPassword, firstName, lastName);
+        return authService.register(request.getEmail(), request.getPassword(), request.getConfirmPassword(), request.getFirstName(), request.getLastName());
     }
+
 
     @GetMapping("/validate-email")
     public String validateEmail(@RequestParam("email") String email, Model model) {
@@ -125,36 +127,6 @@ public class AuthController {
         // getters et setters
     }
 
-    public static class RegisterRequest {
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public String getConfirmPassword() {
-            return confirmPassword;
-        }
-
-        public void setConfirmPassword(String confirmPassword) {
-            this.confirmPassword = confirmPassword;
-        }
-
-        private String email;
-        private String password;
-        private String confirmPassword;
-        // getters et setters
-    }
 
     public static class AuthResponse {
         public AuthResponse(String token, String id, String email, String role) {

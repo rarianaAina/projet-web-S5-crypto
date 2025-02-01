@@ -104,7 +104,6 @@ public class DepositRequestService {
             userRepository.save(user);
         }
 
-/*
         // Envoyer une notification mobile
         String message = String.format(
                 "Votre demande de %s de %s € a été %s",
@@ -113,7 +112,6 @@ public class DepositRequestService {
                 status == DepositRequest.RequestStatus.APPROVED ? "approuvée" : "rejetée"
         );
         notificationService.sendMobileNotification(request.getUser().getId(), message);
-*/
 
         return depositRequestRepository.save(request);
     }

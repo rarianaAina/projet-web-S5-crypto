@@ -79,15 +79,22 @@
 
 <script>
     async function processRequest(requestId, status) {
+        console.log("Request ID:", requestId);
+        console.log("Status:", status);
+
+        if (!requestId) {
+            alert("Erreur : Request ID est invalide !");
+            return;
+        }
+
         try {
-            const response = await fetch(`/admin/deposits/${requestId}/process`, {
+            const response = await fetch("http://localhost:8090/admin/deposits/" + requestId + "/process?status=" + status, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: `status=${status}`
             });
-            
+
             if (response.ok) {
                 window.location.reload();
             } else {
