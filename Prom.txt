@@ -1,0 +1,3 @@
+Je ne veux pas que tu essaies de lancer le projet java sur ton environnement ou que tu essaies d'executer mais je voudrais juste les codes java et les explications. Ne me réponds donc pas par tu n'es pas fais pour les codes à part react car je veux juste que tu me donnes les codes .
+Dans un projet de base javascript, crée un dossier src ou il y aura ces codes mais crée vraiment les packages correspondants
+J'ai ces codes : 

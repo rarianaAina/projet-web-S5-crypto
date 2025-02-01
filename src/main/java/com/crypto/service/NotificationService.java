@@ -12,16 +12,16 @@ public class NotificationService {
     
     private final RestTemplate restTemplate = new RestTemplate();
     
-    public void sendMobileNotification(String userId, String message) {
+    public void sendMobileNotification(Long userId, String message) {
         NotificationRequest request = new NotificationRequest(userId, message);
         restTemplate.postForEntity(notificationServiceUrl + "/notify", request, Void.class);
     }
     
     private static class NotificationRequest {
-        private String userId;
+        private Long userId;
         private String message;
         
-        public NotificationRequest(String userId, String message) {
+        public NotificationRequest(Long userId, String message) {
             this.userId = userId;
             this.message = message;
         }

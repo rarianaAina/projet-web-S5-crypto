@@ -9,8 +9,9 @@ import java.math.BigDecimal;
 @Table(name = "users")
 public class User {
     @Id
-    private String id; // ID provenant du service d'authentification externe
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // PostgreSQL AUTO_INCREMENT
+    private Long id;
+
     @Column(nullable = false)
     private String email;
     
@@ -22,4 +23,10 @@ public class User {
     
     @Column(nullable = false)
     private boolean emailVerified = false;
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
 }

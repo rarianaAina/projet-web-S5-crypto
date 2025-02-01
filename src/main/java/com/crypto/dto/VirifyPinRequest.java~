@@ -1,0 +1,4 @@
+package com.crypto.dto;
+
+public class VirifyPinRequest {
+}

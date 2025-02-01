@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,9 +48,9 @@
                     <div class="w-full border-t border-gray-300"></div>
                 </div>
                 <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-white text-gray-500">
-                            Pas encore de compte ?
-                        </span>
+                    <span class="px-2 bg-white text-gray-500">
+                        Pas encore de compte ?
+                    </span>
                 </div>
             </div>
 
@@ -69,30 +68,34 @@
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const formData = {
+            email: e.target.email.value,
+            password: e.target.password.value
+        };
+
         try {
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    email: e.target.email.value,
-                    password: e.target.password.value,
-                }),
+                body: JSON.stringify(formData)
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('token', data.token);
-                window.location.href = '/market';
+            const data = await response.json();
+
+            if (data.message && data.message.includes("PIN")) {
+                sessionStorage.setItem('email', formData.email);
+                window.location.href = '/verify-pin-2fa';
             } else {
-                throw new Error('Erreur d\'authentification');
+                alert(data.message || "Erreur d'authentification");
             }
         } catch (error) {
             console.error('Erreur:', error);
             alert('Erreur lors de la connexion');
         }
     });
+
 </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +14,9 @@
     </div>
 
     <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form id="registerForm" class="space-y-6">
+        <form id="registrationForm" class="space-y-6">
             <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">
-                    Email
-                </label>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <div class="mt-1">
                     <input id="email" name="email" type="email" required
                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
@@ -26,9 +24,23 @@
             </div>
 
             <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">
-                    Mot de passe
-                </label>
+                <label for="firstName" class="block text-sm font-medium text-gray-700">Prénom</label>
+                <div class="mt-1">
+                    <input id="firstName" name="firstName" type="text" required
+                           class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+            </div>
+
+            <div>
+                <label for="lastName" class="block text-sm font-medium text-gray-700">Nom</label>
+                <div class="mt-1">
+                    <input id="lastName" name="lastName" type="text" required
+                           class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
                 <div class="mt-1">
                     <input id="password" name="password" type="password" required
                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
@@ -36,9 +48,7 @@
             </div>
 
             <div>
-                <label for="confirmPassword" class="block text-sm font-medium text-gray-700">
-                    Confirmer le mot de passe
-                </label>
+                <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirmer le mot de passe</label>
                 <div class="mt-1">
                     <input id="confirmPassword" name="confirmPassword" type="password" required
                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
@@ -59,9 +69,9 @@
                     <div class="w-full border-t border-gray-300"></div>
                 </div>
                 <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-white text-gray-500">
-                            Déjà un compte ?
-                        </span>
+                    <span class="px-2 bg-white text-gray-500">
+                        Déjà un compte ?
+                    </span>
                 </div>
             </div>
 
@@ -76,16 +86,10 @@
 </div>
 
 <script>
-    document.getElementById('registerForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
+    document.getElementById('registrationForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-        const password = e.target.password.value;
-        const confirmPassword = e.target.confirmPassword.value;
-
-        if (password !== confirmPassword) {
-            alert('Les mots de passe ne correspondent pas');
-            return;
-        }
+        const formData = new FormData(event.target);
 
         try {
             const response = await fetch('/api/auth/register', {
@@ -94,18 +98,20 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: e.target.email.value,
-                    password: password,
-                    confirmPassword: confirmPassword,
-                }),
+                    email: formData.get('email'),
+                    password: formData.get('password'),
+                    confirmPassword: formData.get('confirmPassword'),
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName')
+                })
             });
 
             if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('token', data.token);
-                window.location.href = '/market';
+                const encodedEmail = encodeURIComponent(formData.get('email'));
+                window.location.href = `/validation-email?email=${encodedEmail}`;
             } else {
-                throw new Error('Erreur d\'inscription');
+                const error = await response.text();
+                alert(error);
             }
         } catch (error) {
             console.error('Erreur:', error);

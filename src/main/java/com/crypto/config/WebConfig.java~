@@ -1,0 +1,31 @@
+package com.crypto.config;
+
+import com.crypto.interceptor.SessionInterceptor;
+import com.crypto.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+    @Autowired
+    private UserService userService;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new SessionInterceptor(userService))
+                .excludePathPatterns(
+                        "/login",
+                        "/register",
+                        "/api/auth/**",
+                        "/api/email/**",
+                        "/verify-pin-2fa",
+                        "/verify-pin-2fa/**",
+                        "/css/**",
+                        "/js/**",
+                        "/images/**"
+                );
+    }
+}

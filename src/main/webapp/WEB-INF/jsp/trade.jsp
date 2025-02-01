@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="layout/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,13 +30,14 @@
                     <div>
                         <h3 class="text-lg font-semibold mb-4">Acheter</h3>
                         <form action="/api/trade/buy/${crypto.id}" method="POST">
+                            <input type="hidden" name="userId" value="${user.id}"> <!-- ID de l'utilisateur -->
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700">Montant</label>
-                                <input type="number" step="0.000001" name="amount" 
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" 
+                                <input type="number" step="0.000001" name="amount"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                                        required>
                             </div>
-                            <button type="submit" 
+                            <button type="submit"
                                     class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
                                 Acheter
                             </button>
@@ -46,13 +48,14 @@
                     <div>
                         <h3 class="text-lg font-semibold mb-4">Vendre</h3>
                         <form action="/api/trade/sell/${crypto.id}" method="POST">
+                            <input type="hidden" name="userId" value="${user.id}"> <!-- ID de l'utilisateur -->
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700">Montant</label>
-                                <input type="number" step="0.000001" name="amount" 
-                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" 
+                                <input type="number" step="0.000001" name="amount"
+                                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                                        required>
                             </div>
-                            <button type="submit" 
+                            <button type="submit"
                                     class="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
                                 Vendre
                             </button>

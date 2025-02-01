@@ -2,6 +2,7 @@ package com.crypto.repository;
 
 import com.crypto.model.Transaction;
 import com.crypto.dto.UserPortfolioSummary;
+import com.crypto.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDateTime;

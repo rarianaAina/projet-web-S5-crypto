@@ -18,7 +18,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
                                               LocalDateTime endDate,
                                               List<Long> cryptoIds);
     
-    @Query("SELECT new com.trading.crypto.dto.UserPortfolioSummary(" +
+    @Query("SELECT new com.crypto.dto.UserPortfolioSummary(" +
            "u.id, u.email, " +
            "SUM(CASE WHEN t.type = 'BUY' THEN t.amount * t.price ELSE 0 END), " +
            "SUM(CASE WHEN t.type = 'SELL' THEN t.amount * t.price ELSE 0 END), " +

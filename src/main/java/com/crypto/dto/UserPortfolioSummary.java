@@ -10,4 +10,13 @@ public class UserPortfolioSummary {
     private BigDecimal totalBuys;
     private BigDecimal totalSells;
     private BigDecimal portfolioValue;
+
+    public UserPortfolioSummary(String userId, String email, BigDecimal totalBuyAmount,
+                                BigDecimal totalSellAmount, BigDecimal currentValue) {
+        this.userId = userId;
+        this.userEmail = email;
+        this.totalBuys = totalBuyAmount;
+        this.totalSells = totalSellAmount;
+        this.portfolioValue = currentValue;
+    }
 }

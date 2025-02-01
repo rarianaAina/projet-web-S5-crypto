@@ -1,4 +1,3 @@
-/*
 package com.crypto.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class AuthConfig {
     
-    @Value("${auth.service.url}")
+/*    @Value("${auth.service.url}")
     private String authServiceUrl;
     
     @Value("${auth.service.client-id}")
@@ -17,7 +16,7 @@ public class AuthConfig {
     
     @Value("${auth.service.client-secret}")
     private String clientSecret;
-    
+    */
     @Bean
     public RestTemplate authRestTemplate() {
         RestTemplate restTemplate = new RestTemplate();
@@ -32,4 +31,4 @@ public class AuthConfig {
         // Obtenir un token de service pour les communications inter-services
         return "service-token";
     }
-}*/
+}
