@@ -4,11 +4,11 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8090:8090"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/cryptotrading
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: rariana
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/crypto
+      SPRING_DATASOURCE_USERNAME: crypto
+      SPRING_DATASOURCE_PASSWORD: crypto
     depends_on:
       - db
     command: ["sh", "-c", "until nc -z -v -w30 db 5432; do echo 'Waiting for database...'; sleep 1; done; java -jar /app/app.jar"]

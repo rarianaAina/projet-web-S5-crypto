@@ -19,6 +19,12 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @GetMapping("/")
+    public String showIndexPage() {
+        
+        return "auth/login";
+    }
+
     @GetMapping("/login")
     public String showLoginPage() {
         return "auth/login"; // Cela retournera la vue `login.html` ou `login.jsp`

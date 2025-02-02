@@ -70,7 +70,7 @@ public class AdminController {
         return commissionService.updateCommissions(buyCommission, sellCommission);
     }
 
-/*    @GetMapping("/commissions/analytics")
+    @GetMapping("/commissions/analytics")
     @ResponseBody
     public Map<String, BigDecimal> getCommissionAnalytics(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
@@ -88,17 +88,16 @@ public class AdminController {
         model.addAttribute("summaries", analyticsService.getPortfolioSummary(maxDate));
         return "admin/portfolio-summary";
     }
-    */
     @PostMapping("/deposits/{id}/process")
     @ResponseBody
     public ResponseEntity<DepositRequest> processDepositRequest(
             @PathVariable Long id,
-            @RequestBody DepositRequest.RequestStatus status) {
-        // Log
+            @RequestParam DepositRequest.RequestStatus status) {
+        // Log du paramètre
         System.out.println("Processing request for ID: " + id + " with status: " + status);
+
         return ResponseEntity.ok(depositRequestService.processRequest(id, status));
     }
-
 
 
 

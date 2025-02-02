@@ -19,9 +19,8 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
 
-/*    @Autowired
+    @Autowired
     private AnalyticsService analyticsService;
-    */
     @Autowired
     private CommissionService commissionService;
 
@@ -70,7 +69,7 @@ public class AdminController {
         return commissionService.updateCommissions(buyCommission, sellCommission);
     }
 
-/*    @GetMapping("/commissions/analytics")
+    @GetMapping("/commissions/analytics")
     @ResponseBody
     public Map<String, BigDecimal> getCommissionAnalytics(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
@@ -88,7 +87,6 @@ public class AdminController {
         model.addAttribute("summaries", analyticsService.getPortfolioSummary(maxDate));
         return "admin/portfolio-summary";
     }
-    */
     @PostMapping("/deposits/{id}/process")
     @ResponseBody
     public ResponseEntity<DepositRequest> processDepositRequest(

@@ -23,8 +23,11 @@ WORKDIR /app
 # Copier le fichier JAR depuis l'étape de build
 COPY --from=builder /app/target/*.jar app.jar
 
+# Copier les fichiers JSP dans le répertoire approprié
+COPY --from=builder /app/src/main/webapp /app/src/main/webapp
+
 # Exposer le port
-EXPOSE 8080
+EXPOSE 8090
 
 # Commande d'entrée
 ENTRYPOINT ["java", "-jar", "app.jar"]
